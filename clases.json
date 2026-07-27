@@ -6,7 +6,7 @@
     "HORARIO": "08:00-11:00",
     "PROFESOR": "Ferreyra Marina Lorena (Y)",
     "MATERIA": "TEOR?A DE LA ACTIVIDAD F?SICA Y EL DEPORTE I",
-    "AULA": 1202,
+    "AULA": 9999,
     "COMISION": "1-A-M",
     "Modalidad": "Presencial"
   },
@@ -39,7 +39,7 @@
     "HORARIO": "08:30-09:50",
     "PROFESOR": "Schiaffi Juan Pablo (Y)",
     "MATERIA": "NATACI?N Y SU DID?CTICA",
-    "AULA": 1222,
+    "AULA": 1302,
     "COMISION": "2-A-M",
     "Modalidad": "Presencial"
   },
@@ -50,7 +50,7 @@
     "HORARIO": "07:00-09:00",
     "PROFESOR": "BENZZO GUILLERMO",
     "MATERIA": "TRABAJO AMBIENTE Y SALUD",
-    "AULA": 9999,
+    "AULA": 1209,
     "COMISION": "4TTODAS",
     "Modalidad": "Presencial"
   },
