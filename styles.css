@@ -6,14 +6,20 @@ body{
 }
 
 .container{
-    max-width:1100px;
+    max-width:1000px;
     margin:auto;
 }
 
 h1{
     text-align:center;
     color:#002b5b;
-    margin-bottom:30px;
+    margin-bottom:25px;
+}
+
+.subtitulo{
+    color:#002b5b;
+    margin-top:25px;
+    margin-bottom:15px;
 }
 
 #busqueda{
@@ -23,11 +29,10 @@ h1{
     border:1px solid #ccc;
     border-radius:12px;
     box-sizing:border-box;
-    margin-bottom:20px;
 }
 
 .card{
-    background:#fff;
+    background:white;
     border-radius:15px;
     padding:20px;
     margin-bottom:20px;
@@ -35,14 +40,14 @@ h1{
 }
 
 .materia{
-    font-size:32px;
+    font-size:30px;
     font-weight:bold;
     color:#002b5b;
-    margin-bottom:20px;
+    margin-bottom:15px;
 }
 
 .aula-label{
-    font-size:20px;
+    font-size:18px;
     color:#666;
 }
 
@@ -61,6 +66,6 @@ h1{
 .sin-resultados{
     text-align:center;
     font-size:22px;
-    color:#666;
     margin-top:40px;
+    color:#666;
 }
