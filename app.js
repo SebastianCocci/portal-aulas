@@ -1,23 +1,26 @@
 let datos = [];
 
 fetch("clases.json")
-    .then(r => r.json())
+    .then(response => response.json())
     .then(data => {
         datos = data;
-        mostrar(data);
+        mostrar([]);
     });
 
 const buscador = document.getElementById("busqueda");
 
 buscador.addEventListener("input", () => {
 
-    const texto = buscador.value.toLowerCase();
+    const texto = buscador.value.trim().toLowerCase();
+
+    if(texto.length < 3){
+        mostrar([]);
+        return;
+    }
 
     const filtrados = datos.filter(item =>
-        Object.values(item)
-            .join(" ")
-            .toLowerCase()
-            .includes(texto)
+        item.MATERIA &&
+        item.MATERIA.toLowerCase().includes(texto)
     );
 
     mostrar(filtrados);
@@ -26,38 +29,57 @@ buscador.addEventListener("input", () => {
 
 function mostrar(lista){
 
-    const div = document.getElementById("resultados");
+    const contenedor = document.getElementById("resultados");
 
-    div.innerHTML = "";
+    if(lista.length === 0){
+
+        contenedor.innerHTML = `
+            <div class="sin-resultados">
+                Escribí al menos 3 letras de una materia
+            </div>
+        `;
+
+        return;
+    }
+
+    contenedor.innerHTML = "";
 
     lista.forEach(item => {
 
-        div.innerHTML += `
+        contenedor.innerHTML += `
             <div class="card">
 
                 <div class="materia">
                     ${item.MATERIA}
                 </div>
 
-                <div class="aula">
-                    📍 Aula ${item.AULA}
+                <div class="aula-label">
+                    AULA
                 </div>
 
-                <p>
-                    🏫 ${item.CARRERA}
-                </p>
+                <div class="aula">
+                    ${item.AULA}
+                </div>
 
-                <p>
-                    🕒 ${item.DIA} - ${item.HORARIO}
-                </p>
+                <div class="info">
+                    📅 ${item.DIA}
+                </div>
 
-                <p>
+                <div class="info">
+                    🕒 ${item.HORARIO}
+                </div>
+
+                <div class="info">
                     👨‍🏫 ${item.PROFESOR}
-                </p>
+                </div>
 
-                <p>
+                <div class="info">
                     👥 ${item.COMISION}
-                </p>
+                </div>
+
+                <div class="info">
+                    🏫 ${item.CARRERA}
+                </div>
 
             </div>
         `;
