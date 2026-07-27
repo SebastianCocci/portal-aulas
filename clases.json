@@ -2,19 +2,4 @@
   {
     "DIA":"Jueves",
     "CARRERA":"Abogacia",
-    "HORARIO":"08:00-10:00",
-    "PROFESOR":"Sueiro Carlos Christian",
-    "MATERIA":"DERECHO PENAL II",
-    "AULA":"1801",
-    "COMISION":"2-A-M"
-  },
-  {
-    "DIA":"Jueves",
-    "CARRERA":"Abogacia",
-    "HORARIO":"09:00-13:00",
-    "PROFESOR":"Vargas Gaston",
-    "MATERIA":"GARANTIAS CONSTITUCIONALES",
-    "AULA":"1803",
-    "COMISION":"1-A-M"
-  }
-]
+    "HORARIO
