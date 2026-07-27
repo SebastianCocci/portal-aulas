@@ -1,48 +1,112 @@
 let datos = [];
-
-fetch("clases.json")
-    .then(response => response.json())
-    .then(data => {
-
-        datos = data;
-
-        // Mostrar algunas materias al abrir
-        mostrar(datos.slice(0, 15));
-
-    });
+let modo = "clases";
 
 const buscador = document.getElementById("busqueda");
+const resultados = document.getElementById("resultados");
+
+function normalizar(texto) {
+    return String(texto || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+}
+
+async function cargarDatos() {
+
+    const archivo =
+        modo === "clases"
+            ? "clases.json"
+            : "examenes.json";
+
+    const response = await fetch(archivo);
+
+    datos = await response.json();
+
+    datos.sort((a, b) =>
+        String(a.MATERIA || "")
+            .localeCompare(String(b.MATERIA || ""))
+    );
+
+    mostrar(datos.slice(0, 15));
+}
+
+document
+    .getElementById("btnClases")
+    .addEventListener("click", () => {
+
+        modo = "clases";
+
+        document
+            .getElementById("btnClases")
+            .classList.add("activo");
+
+        document
+            .getElementById("btnExamenes")
+            .classList.remove("activo");
+
+        buscador.value = "";
+
+        cargarDatos();
+    });
+
+document
+    .getElementById("btnExamenes")
+    .addEventListener("click", () => {
+
+        modo = "examenes";
+
+        document
+            .getElementById("btnExamenes")
+            .classList.add("activo");
+
+        document
+            .getElementById("btnClases")
+            .classList.remove("activo");
+
+        buscador.value = "";
+
+        cargarDatos();
+    });
 
 buscador.addEventListener("input", () => {
 
-    const texto = buscador.value.trim().toLowerCase();
+    const texto = normalizar(
+        buscador.value
+    );
 
-    // Si está vacío mostrar materias destacadas
-    if(texto === ""){
-
+    if (texto === "") {
         mostrar(datos.slice(0, 15));
         return;
-
     }
 
-    const filtrados = datos.filter(item =>
+    if (texto.length < 3) {
 
-        item.MATERIA &&
-        item.MATERIA.toLowerCase().includes(texto)
+        resultados.innerHTML = `
+            <div class="sin-resultados">
+                Escribí al menos 3 letras
+            </div>
+        `;
 
-    );
+        return;
+    }
+
+    const filtrados = datos
+        .filter(item =>
+            normalizar(item.MATERIA)
+                .includes(texto)
+        )
+        .slice(0, 30);
 
     mostrar(filtrados);
 
 });
 
-function mostrar(lista){
+function mostrar(lista) {
 
-    const contenedor = document.getElementById("resultados");
+    if (lista.length === 0) {
 
-    if(lista.length === 0){
-
-        contenedor.innerHTML = `
+        resultados.innerHTML = `
             <div class="sin-resultados">
                 No se encontraron materias
             </div>
@@ -51,49 +115,121 @@ function mostrar(lista){
         return;
     }
 
-    contenedor.innerHTML = "";
+    resultados.innerHTML = "";
 
     lista.forEach(item => {
 
-        contenedor.innerHTML += `
+        if (modo === "clases") {
 
-        <div class="card">
+            resultados.innerHTML += `
+                <div class="card">
 
-            <div class="materia">
-                ${item.MATERIA}
-            </div>
+                    <div class="materia">
+                        ${item.MATERIA || "-"}
+                    </div>
 
-            <div class="aula-label">
-                📍 AULA
-            </div>
+                    <div class="aula-label">
+                        Aula
+                    </div>
 
-            <div class="aula">
-                ${item.AULA}
-            </div>
+                    <div class="aula">
+                        ${item.AULA || "-"}
+                    </div>
 
-            <div class="info">
-                📅 ${item.DIA}
-            </div>
+                    <div class="info">
+                        <strong>Día:</strong> ${item.DIA || "-"}
+                    </div>
 
-            <div class="info">
-                🕒 ${item.HORARIO}
-            </div>
+                    <div class="info">
+                        <strong>Horario:</strong> ${item.HORARIO || "-"}
+                    </div>
 
-            <div class="info">
-                👨‍🏫 ${item.PROFESOR}
-            </div>
+                    <div class="info">
+                        <strong>Docente:</strong> ${item.PROFESOR || "-"}
+                    </div>
 
-            <div class="info">
-                👥 ${item.COMISION}
-            </div>
+                    <div class="info">
+                        <strong>Comisión:</strong> ${item.COMISION || "-"}
+                    </div>
 
-            <div class="info">
-                🏫 ${item.CARRERA}
-            </div>
+                    <div class="info">
+                        <strong>Carrera:</strong> ${item.CARRERA || "-"}
+                    </div>
 
-        </div>
+                </div>
+            `;
 
-        `;
+        } else {
+
+            const esVirtual =
+                String(item["virtual / presencial"] || "")
+                    .toUpperCase()
+                    .includes("VIRTUAL");
+
+            resultados.innerHTML += `
+                <div class="card">
+
+                    <div class="materia">
+                        ${item.MATERIA || "-"}
+                    </div>
+
+                    <div class="aula-label">
+                        ${esVirtual ? "Modalidad" : "Aula"}
+                    </div>
+
+                    <div class="aula">
+                        ${
+                            esVirtual
+                                ? "VIRTUAL"
+                                : (item.AULA || "-")
+                        }
+                    </div>
+
+                    <div class="info">
+                        <strong>Fecha:</strong> ${item.DIA || "-"}
+                    </div>
+
+                    <div class="info">
+                        <strong>Hora:</strong> ${item.HORA || "-"}
+                    </div>
+
+                    <div class="info">
+                        <strong>Presidente:</strong> ${item["PRESIDENTE MESA"] || "-"}
+                    </div>
+
+                    <div class="info">
+                        <strong>Vocal 1:</strong> ${item["VOCAL 1"] || "-"}
+                    </div>
+
+                    ${
+                        item["VOCAL 2"]
+                            ? `
+                            <div class="info">
+                                <strong>Vocal 2:</strong> ${item["VOCAL 2"]}
+                            </div>
+                            `
+                            : ""
+                    }
+
+                    <div class="info">
+                        <strong>Campus:</strong> ${item.CAMPUS || "-"}
+                    </div>
+
+                    ${
+                        item.observaciones
+                            ? `
+                            <div class="info">
+                                <strong>Observaciones:</strong> ${item.observaciones}
+                            </div>
+                            `
+                            : ""
+                    }
+
+                </div>
+            `;
+        }
+
     });
-
 }
+
+cargarDatos();
