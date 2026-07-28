@@ -3,6 +3,7 @@ let modo = "clases";
 
 const buscador = document.getElementById("busqueda");
 const resultados = document.getElementById("resultados");
+const filtroFecha = document.getElementById("filtroFecha");
 
 function normalizar(texto) {
     return String(texto || "")
@@ -28,7 +29,103 @@ async function cargarDatos() {
             .localeCompare(String(b.MATERIA || ""))
     );
 
+    if (modo === "examenes") {
+
+        filtroFecha.style.display = "block";
+
+        const fechas = [
+            ...new Set(
+                datos
+                    .map(item => item.DIA)
+                    .filter(Boolean)
+            )
+        ];
+
+        fechas.sort((a, b) => {
+
+            const pa = a.split("/");
+            const pb = b.split("/");
+
+            return new Date(
+                pa[2],
+                pa[1] - 1,
+                pa[0]
+            ) - new Date(
+                pb[2],
+                pb[1] - 1,
+                pb[0]
+            );
+
+        });
+
+        filtroFecha.innerHTML =
+            '<option value="">Todas las fechas</option>';
+
+        fechas.forEach(fecha => {
+
+            filtroFecha.innerHTML += `
+                <option value="${fecha}">
+                    ${fecha}
+                </option>
+            `;
+
+        });
+
+    } else {
+
+        filtroFecha.style.display = "none";
+        filtroFecha.value = "";
+
+    }
+
     mostrar(datos.slice(0, 15));
+
+}
+
+function aplicarFiltros() {
+
+    const texto =
+        normalizar(buscador.value);
+
+    const fecha =
+        filtroFecha.value;
+
+    let filtrados = [...datos];
+
+    if (
+        modo === "examenes" &&
+        fecha !== ""
+    ) {
+
+        filtrados = filtrados.filter(
+            item => item.DIA === fecha
+        );
+
+    }
+
+    if (texto.length >= 3) {
+
+        filtrados = filtrados.filter(
+            item =>
+                normalizar(item.MATERIA)
+                    .includes(texto)
+        );
+
+    }
+
+    if (
+        texto === "" &&
+        fecha === ""
+    ) {
+
+        mostrar(filtrados.slice(0, 15));
+
+    } else {
+
+        mostrar(filtrados);
+
+    }
+
 }
 
 document
@@ -47,7 +144,10 @@ document
 
         buscador.value = "";
 
+        filtroFecha.value = "";
+
         cargarDatos();
+
     });
 
 document
@@ -66,41 +166,21 @@ document
 
         buscador.value = "";
 
+        filtroFecha.value = "";
+
         cargarDatos();
+
     });
 
-buscador.addEventListener("input", () => {
+buscador.addEventListener(
+    "input",
+    aplicarFiltros
+);
 
-    const texto = normalizar(
-        buscador.value
-    );
-
-    if (texto === "") {
-        mostrar(datos.slice(0, 15));
-        return;
-    }
-
-    if (texto.length < 3) {
-
-        resultados.innerHTML = `
-            <div class="sin-resultados">
-                Escribí al menos 3 letras
-            </div>
-        `;
-
-        return;
-    }
-
-    const filtrados = datos
-        .filter(item =>
-            normalizar(item.MATERIA)
-                .includes(texto)
-        )
-        .slice(0, 30);
-
-    mostrar(filtrados);
-
-});
+filtroFecha.addEventListener(
+    "change",
+    aplicarFiltros
+);
 
 function mostrar(lista) {
 
@@ -113,6 +193,7 @@ function mostrar(lista) {
         `;
 
         return;
+
     }
 
     resultados.innerHTML = "";
@@ -230,6 +311,7 @@ function mostrar(lista) {
         }
 
     });
+
 }
 
 cargarDatos();
