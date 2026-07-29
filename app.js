@@ -1,5 +1,7 @@
 let datos = [];
+let datosFecha = [];
 let modo = "clases";
+let timeoutBusqueda;
 
 const buscador = document.getElementById("busqueda");
 const resultados = document.getElementById("resultados");
@@ -71,6 +73,8 @@ async function cargarDatos() {
 
         });
 
+        datosFecha = [];
+
         resultados.innerHTML = `
             <div class="sin-resultados">
                 Seleccione una fecha para visualizar los exámenes.
@@ -81,6 +85,7 @@ async function cargarDatos() {
 
         filtroFecha.style.display = "none";
         filtroFecha.value = "";
+        datosFecha = [];
 
         mostrar(datos.slice(0, 15));
 
@@ -104,22 +109,13 @@ function aplicarFiltros() {
         return;
     }
 
+    let filtrados =
+        modo === "examenes"
+            ? [...datosFecha]
+            : [...datos];
+
     const texto =
         normalizar(buscador.value);
-
-    let filtrados = [...datos];
-
-    if (
-        modo === "examenes" &&
-        filtroFecha.value !== ""
-    ) {
-
-        filtrados = filtrados.filter(
-            item =>
-                item.DIA === filtroFecha.value
-        );
-
-    }
 
     if (texto.length >= 3) {
 
@@ -177,15 +173,41 @@ document
 
     });
 
-buscador.addEventListener(
-    "input",
-    aplicarFiltros
-);
+buscador.addEventListener("input", () => {
 
-filtroFecha.addEventListener(
-    "change",
-    aplicarFiltros
-);
+    clearTimeout(timeoutBusqueda);
+
+    timeoutBusqueda = setTimeout(() => {
+
+        aplicarFiltros();
+
+    }, 500);
+
+});
+
+filtroFecha.addEventListener("change", () => {
+
+    if (filtroFecha.value === "") {
+
+        datosFecha = [];
+
+        resultados.innerHTML = `
+            <div class="sin-resultados">
+                Seleccione una fecha para visualizar los exámenes.
+            </div>
+        `;
+
+        return;
+    }
+
+    datosFecha = datos.filter(
+        item =>
+            item.DIA === filtroFecha.value
+    );
+
+    aplicarFiltros();
+
+});
 
 function mostrar(lista) {
 
@@ -198,7 +220,6 @@ function mostrar(lista) {
         `;
 
         return;
-
     }
 
     resultados.innerHTML = "";
@@ -264,11 +285,9 @@ function mostrar(lista) {
                     </div>
 
                     <div class="aula">
-                        ${
-                            esVirtual
-                                ? "VIRTUAL"
-                                : (item.AULA || "-")
-                        }
+                        ${esVirtual
+                            ? "VIRTUAL"
+                            : (item.AULA || "-")}
                     </div>
 
                     <div class="info">
@@ -313,6 +332,7 @@ function mostrar(lista) {
 
                 </div>
             `;
+
         }
 
     });
