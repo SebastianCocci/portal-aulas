@@ -59,7 +59,7 @@ async function cargarDatos() {
         });
 
         filtroFecha.innerHTML =
-            '<option value="">Todas las fechas</option>';
+            '<option value="">Seleccione una fecha de examen</option>';
 
         fechas.forEach(fecha => {
 
@@ -71,34 +71,52 @@ async function cargarDatos() {
 
         });
 
+        resultados.innerHTML = `
+            <div class="sin-resultados">
+                Seleccione una fecha para visualizar los exámenes.
+            </div>
+        `;
+
     } else {
 
         filtroFecha.style.display = "none";
         filtroFecha.value = "";
 
-    }
+        mostrar(datos.slice(0, 15));
 
-    mostrar(datos.slice(0, 15));
+    }
 
 }
 
 function aplicarFiltros() {
 
+    if (
+        modo === "examenes" &&
+        filtroFecha.value === ""
+    ) {
+
+        resultados.innerHTML = `
+            <div class="sin-resultados">
+                Seleccione una fecha para visualizar los exámenes.
+            </div>
+        `;
+
+        return;
+    }
+
     const texto =
         normalizar(buscador.value);
-
-    const fecha =
-        filtroFecha.value;
 
     let filtrados = [...datos];
 
     if (
         modo === "examenes" &&
-        fecha !== ""
+        filtroFecha.value !== ""
     ) {
 
         filtrados = filtrados.filter(
-            item => item.DIA === fecha
+            item =>
+                item.DIA === filtroFecha.value
         );
 
     }
@@ -113,18 +131,7 @@ function aplicarFiltros() {
 
     }
 
-    if (
-        texto === "" &&
-        fecha === ""
-    ) {
-
-        mostrar(filtrados.slice(0, 15));
-
-    } else {
-
-        mostrar(filtrados);
-
-    }
+    mostrar(filtrados);
 
 }
 
@@ -143,7 +150,6 @@ document
             .classList.remove("activo");
 
         buscador.value = "";
-
         filtroFecha.value = "";
 
         cargarDatos();
@@ -165,7 +171,6 @@ document
             .classList.remove("activo");
 
         buscador.value = "";
-
         filtroFecha.value = "";
 
         cargarDatos();
