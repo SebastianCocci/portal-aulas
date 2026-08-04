@@ -38155,7 +38155,7 @@
     "PRESIDENTE MESA": "Casiello, Bruno Andres",
     "VOCAL 1": "Bustos, Albano",
     "VOCAL 2": "Lampugnani, Pablo",
-    "AULA": 1102,
+    "AULA": 1208,
     "observaciones": "",
     "virtual / presencial": "PRESENCIAL"
   },
@@ -39979,7 +39979,7 @@
     "PRESIDENTE MESA": "Murcia, Julian David",
     "VOCAL 1": "Gomez, Maria Pilar",
     "VOCAL 2": "",
-    "AULA": 1203,
+    "AULA": 11003,
     "observaciones": "",
     "virtual / presencial": "PRESENCIAL"
   },
@@ -48476,6 +48476,22 @@
     "VOCAL 1": "ORITI TIZIO ALEJANDRO",
     "VOCAL 2": "",
     "AULA": "",
+    "observaciones": "",
+    "virtual / presencial": "PRESENCIAL"
+  },
+  {
+    "DIA": "04/08/2026",
+    "CAMPUS": "ROCA",
+    "HORA": "13:00",
+    "CARRERA": "M1",
+    "AÑO": "6°",
+    "TURNO": "M",
+    "COD. MATERIA": 0,
+    "MATERIA": "INVESTIGACION APLICADA Y FORMULACION DE PROYECTOS",
+    "PRESIDENTE MESA": "Fernandez, Florencia",
+    "VOCAL 1": "",
+    "VOCAL 2": "",
+    "AULA": 1103,
     "observaciones": "",
     "virtual / presencial": "PRESENCIAL"
   }
