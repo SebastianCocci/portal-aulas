@@ -31675,7 +31675,7 @@
     "PRESIDENTE MESA": "Marinozzi, Dario",
     "VOCAL 1": "Rosso, Adrian Jose",
     "VOCAL 2": "",
-    "AULA": 11002,
+    "AULA": 11004,
     "observaciones": "",
     "virtual / presencial": "PRESENCIAL"
   },
@@ -32235,7 +32235,7 @@
     "PRESIDENTE MESA": "Marenghini, Juan Carlos",
     "VOCAL 1": "Giallorenzi, Maria Laura",
     "VOCAL 2": "",
-    "AULA": 11002,
+    "AULA": 11004,
     "observaciones": "",
     "virtual / presencial": "PRESENCIAL"
   },
@@ -33051,7 +33051,7 @@
     "PRESIDENTE MESA": "Lindozzi, Mariela Gladis",
     "VOCAL 1": "Marinozzi, Dario",
     "VOCAL 2": "",
-    "AULA": 11002,
+    "AULA": 11004,
     "observaciones": "",
     "virtual / presencial": "PRESENCIAL"
   },
@@ -38171,7 +38171,7 @@
     "PRESIDENTE MESA": "Chiesa, Luis Hernan",
     "VOCAL 1": "Eichhorn, Maria Carolina",
     "VOCAL 2": "Gonzales, Daniela",
-    "AULA": 1201,
+    "AULA": 1209,
     "observaciones": "",
     "virtual / presencial": "PRESENCIAL"
   },
@@ -39835,7 +39835,7 @@
     "PRESIDENTE MESA": "Chiesa, Luis Hernan",
     "VOCAL 1": "Eichhorn, Maria Carolina",
     "VOCAL 2": "Chiesa, Paulina",
-    "AULA": 1201,
+    "AULA": 1208,
     "observaciones": "",
     "virtual / presencial": "PRESENCIAL"
   },
@@ -48476,22 +48476,6 @@
     "VOCAL 1": "ORITI TIZIO ALEJANDRO",
     "VOCAL 2": "",
     "AULA": "",
-    "observaciones": "",
-    "virtual / presencial": "PRESENCIAL"
-  },
-  {
-    "DIA": "04/08/2026",
-    "CAMPUS": "ROCA",
-    "HORA": "13:00",
-    "CARRERA": "M1",
-    "AÑO": "6°",
-    "TURNO": "M",
-    "COD. MATERIA": 0,
-    "MATERIA": "INVESTIGACION APLICADA Y FORMULACION DE PROYECTOS",
-    "PRESIDENTE MESA": "Fernandez, Florencia",
-    "VOCAL 1": "",
-    "VOCAL 2": "",
-    "AULA": 1103,
     "observaciones": "",
     "virtual / presencial": "PRESENCIAL"
   }
