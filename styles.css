@@ -1,167 +1,248 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    font-family:"Segoe UI",sans-serif;
-    background:#f5f6f8;
-    color:#263238;
+body {
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: #f5f6f8;
+    color: #263238;
+    line-height: 1.5;
 }
 
-.container{
-    max-width:1000px;
-    margin:0 auto;
-    padding:20px;
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-.header{
-    background:#7a1433;
-    color:white;
-    padding:25px;
-    border-radius:18px;
-    margin-bottom:25px;
+.header {
+    background: #7a1433;
+    color: white;
+    padding: 25px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(122, 20, 51, 0.15);
 }
 
-.header h1{
-    font-size:32px;
-    margin-bottom:5px;
+.header h1 {
+    font-size: 32px;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
 }
 
-.header p{
-    opacity:.9;
+.header p {
+    opacity: 0.9;
+    font-size: 16px;
 }
 
-.botones{
-    display:flex;
-    gap:10px;
-    margin-bottom:20px;
+.botones {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
-.botones button{
-    flex:1;
-    border:none;
-    padding:16px;
-    border-radius:12px;
-    font-size:18px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.2s;
+.botones button {
+    flex: 1;
+    border: 2px solid transparent;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.activo{
-    background:#7a1433;
-    color:white;
+.activo {
+    background: #7a1433;
+    color: white;
 }
 
-.botones button:not(.activo){
-    background:white;
-    color:#444;
+.botones button:not(.activo) {
+    background: white;
+    color: #444;
+    border-color: #e0e0e0;
 }
 
-/* FILTROS */
+.botones button:hover:not(.activo) {
+    background: #f0f0f0;
+}
+
+/* FILTROS Y BÚSQUEDA */
 
 #filtroCarrera,
 #filtroDia,
-#filtroFecha{
-    width:100%;
-    padding:18px;
-    border:1px solid #ccc;
-    border-radius:14px;
-    font-size:18px;
-    background:white;
-    margin-bottom:15px;
-    color:#263238;
+#filtroFecha,
+#busqueda {
+    width: 100%;
+    padding: 16px 18px;
+    border: 1px solid #cccccc;
+    border-radius: 14px;
+    font-size: 17px;
+    background: white;
+    margin-bottom: 15px;
+    color: #263238;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-/* BUSCADOR */
-
-#busqueda{
-    width:100%;
-    padding:18px;
-    border:1px solid #ccc;
-    border-radius:14px;
-    font-size:20px;
-    margin-bottom:20px;
+#filtroCarrera:focus,
+#filtroDia:focus,
+#filtroFecha:focus,
+#busqueda:focus {
+    border-color: #082f64;
+    box-shadow: 0 0 0 3px rgba(8, 47, 100, 0.12);
 }
 
-/* TARJETAS */
-
-.card{
-    background:white;
-    border-radius:18px;
-    padding:25px;
-    margin-bottom:18px;
-    box-shadow:0 4px 14px rgba(0,0,0,.08);
+#filtroCarrera:disabled,
+#filtroDia:disabled,
+#filtroFecha:disabled,
+#busqueda:disabled {
+    background-color: #eaeaea;
+    color: #888888;
+    cursor: not-allowed;
+    border-color: #dddddd;
+    opacity: 0.7;
 }
 
-.materia{
-    font-size:22px;
-    font-weight:700;
-    color:#082f64;
-    margin-bottom:20px;
-    line-height:1.3;
+#busqueda {
+    font-size: 18px;
+    margin-bottom: 20px;
 }
 
-.aula-label{
-    color:#666;
-    font-size:14px;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    margin-bottom:5px;
+/* TARJETAS DE RESULTADOS */
+
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 22px 25px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    border-left: 5px solid #7a1433;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.aula{
-    font-size:56px;
-    font-weight:700;
-    color:#7a1433;
-    margin-bottom:20px;
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
-.info{
-    margin-bottom:10px;
-    font-size:17px;
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
 }
 
-.info strong{
-    color:#082f64;
+.card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #082f64;
+    line-height: 1.35;
+    flex: 1;
 }
 
-/* MENSAJES */
+.card-badge {
+    background: #7a1433;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 700;
+    white-space: nowrap;
+}
 
-.sin-resultados{
-    background:white;
-    padding:30px;
-    border-radius:18px;
-    text-align:center;
-    box-shadow:0 4px 14px rgba(0,0,0,.08);
+.card-body p {
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #37474f;
+}
+
+.card-body p:last-child {
+    margin-bottom: 0;
+}
+
+.card-body strong {
+    color: #082f64;
+}
+
+.observaciones {
+    background: #fff8e1;
+    border-left: 4px solid #ffc107;
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-size: 15px;
+    color: #5d4037;
+}
+
+/* MENSAJES Y ESTADOS */
+
+.sin-resultados {
+    background: white;
+    padding: 35px 20px;
+    border-radius: 18px;
+    text-align: center;
+    color: #546e7a;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
 /* RESPONSIVE */
 
-@media(max-width:768px){
-
-    .botones{
-        flex-direction:column;
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
     }
 
-    .materia{
-        font-size:18px;
+    .header {
+        padding: 20px;
+        margin-bottom: 20px;
     }
 
-    .aula{
-        font-size:42px;
+    .header h1 {
+        font-size: 26px;
     }
 
-    #busqueda{
-        font-size:18px;
+    .botones {
+        flex-direction: column;
+        gap: 8px;
     }
 
+    .botones button {
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .card-title {
+        font-size: 18px;
+    }
+
+    .card-badge {
+        align-self: flex-start;
+        font-size: 14px;
+    }
+
+    #busqueda,
     #filtroCarrera,
     #filtroDia,
-    #filtroFecha{
-        font-size:16px;
+    #filtroFecha {
+        font-size: 16px;
+        padding: 14px 16px;
     }
-
 }

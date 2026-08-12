@@ -21,46 +21,45 @@
         </div>
 
         <div class="botones">
-
             <button id="btnClases" class="activo">
                 CURSADO
             </button>
-
             <button id="btnExamenes">
                 EXÁMENES
             </button>
-
         </div>
 
-        <!-- FILTROS CURSADO -->
+        <!-- CONTENEDOR FILTROS CURSADO -->
+        <div id="contenedorFiltrosCursado">
+            <select id="filtroCarrera">
+                <option value="">1. Seleccione una carrera</option>
+            </select>
 
-        <select id="filtroCarrera" style="display:none;">
-            <option value="">Seleccione una carrera</option>
-        </select>
+            <select id="filtroDia" disabled style="display:none;">
+                <option value="">2. Seleccione un día</option>
+            </select>
+        </div>
 
-        <select id="filtroDia" style="display:none;">
-            <option value="">Seleccione un día</option>
-        </select>
-
-        <!-- FILTRO EXÁMENES -->
-
-        <select id="filtroFecha" style="display:none;">
-            <option value="">Seleccione una fecha de examen</option>
-        </select>
+        <!-- CONTENEDOR FILTROS EXÁMENES -->
+        <div id="contenedorFiltrosExamenes" style="display:none;">
+            <select id="filtroFecha">
+                <option value="">Seleccione una fecha de examen</option>
+            </select>
+        </div>
 
         <!-- BUSCADOR -->
-
         <input
             type="text"
             id="busqueda"
             placeholder="Escribí el nombre de tu materia..."
+            disabled
         >
 
         <div id="resultados"></div>
 
     </div>
 
-    .js"></script>
+    <script src="app.js"></script>
 
 </body>
 
